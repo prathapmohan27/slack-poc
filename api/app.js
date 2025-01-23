@@ -19,7 +19,7 @@ const installer = new InstallProvider({
 });
 
 app.route("/").get((req, res) => {
-  slack.res.send("Hello World!");
+  res.send("Hello World!");
 });
 
 const user = "";
