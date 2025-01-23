@@ -22,8 +22,9 @@ app.route("/").get((req, res) => {
   slack.res.send("Hello World!");
 });
 
-const user = "U089QLQQ0AX";
+const user = "";
 
+// Get the login url for the slack app installation
 app.get("/slack/install", async (req, res) => {
   try {
     const url = await installer.generateInstallUrl({
@@ -37,6 +38,7 @@ app.get("/slack/install", async (req, res) => {
   }
 });
 
+// Handle the callback from the slack app installation, and get the bot token and user id
 app.get("/slack/callback", async (req, res) => {
   try {
     req.headers.cookie = "slack-app-oauth-state=" + req.query.state;
@@ -58,7 +60,7 @@ app.get("/slack/callback", async (req, res) => {
   }
 });
 
-// send message to all users
+// send message to the user with the user id and the bot token
 app.get("/send", async (req, res) => {
   try {
     const botToken = process.env.SLACK_BOT_TOKEN;
@@ -72,6 +74,7 @@ app.get("/send", async (req, res) => {
   }
 });
 
+// Check if the bot token and user id are still valid
 app.get("/test/connection", async (req, res) => {
   try {
     const botToken = process.env.SLACK_BOT_TOKEN;
